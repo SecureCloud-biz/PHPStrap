@@ -1,19 +1,19 @@
 <?php
 
-include 'assets/database.php';
+include '../admin/assets/database.php';
 session_start();
 
 if (isset($_SESSION['logged'])) { 
     if ($_SESSION['logged'] == 1) {
-        header("Location: dashboard.php");
+        header("Location: ../index.php");
     }
 }
 ?>
 <html>
 <head>
-    <title>PhpStrap - Login</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
-    <link rel="stylesheet" href="css/extra.css">  
+    <title>PhpStrap - Register</title>
+    <link rel="stylesheet" href="../admin/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="../admin/css/extra.css">  
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -50,11 +50,13 @@ if (isset($_SESSION['logged'])) {
 </head>
 <body>
     <div class="container">
-      <form class="form-signin" action="login.php" method="post">
-          <h4>PhpStrap Login</h4>
+      <form class="form-signin" action="ps-register.php" method="post">
+          <h4>PhpStrap Registration</h4>
         <input type="text" name="username" class="input-block-level" placeholder="Username">
+        <input type="text" name="email" class="input-block-level" placeholder="Email Address">
         <input type="password" name="password" class="input-block-level" placeholder="Password">
-        <button class="btn btn-block btn-success" name="submit" value="submit" type="submit">Sign in</button>
+        <button class="btn btn-block btn-success" name="submit" value="submit" type="submit">Register</button><br />
+          <div style="text-align: center;"><a href="ps-login.php">Already got an account?</a></div>
       </form>
         <div style="text-align: center;font-size: small;">Powered by <a href="http://www.getphpstrap.com/" target="_blank">PhpStrap</a></div>
     </div>
@@ -77,12 +79,21 @@ if(isset($_POST['submit'])){
         {
             if($stmt->fetch())
             {
-                $_SESSION['username'] = $input['username'];
-                $_SESSION['logged'] = 1;
-                header("Location: login.php");
+                echo "<br /><form class=\"form-signin\"><div style=\"text-align: center;\">Error: failed to register account!</div></form>";
             }
         } else {
-            echo "<br /><form class=\"form-signin\"><div style=\"text-align: center;\">Error: failed to log you in!</div></form>";
+            //Inserting Post to Database
+            $username = $_POST['username'];
+            $email = $_POST['email'];
+            $rank_id = '1';
+            $password = md5($_POST['password']);
+            $conn->query("INSERT INTO users (username, email, rank_id, password) VALUES (
+            '" . mysql_real_escape_string($username) . "',
+            '" . mysql_real_escape_string($email) . "',
+            '" . mysql_real_escape_string($rank_id) . "',
+            '" . mysql_real_escape_string($password) . "')");
+                
+            header("Location: ps-login.php");
         }
     }
 }

@@ -12,6 +12,7 @@ while($row = mysqli_fetch_array($result))
   {
   $gsitename = $row['sitename'];
   $gsiteemail = $row['siteemail'];
+  $gbloglimit = $row['bloglimit'];
   }
 ?>
 <html>
@@ -34,7 +35,12 @@ while($row = mysqli_fetch_array($result))
                 <div class="well well-small">
                     <strong>General Settings.</strong><br /><br />
                     <form class="form-horizontal" action="settings.php" method="POST">
-                    <input value="<?php echo $gsitename; ?>" style="height: 40px;width: 100%;" type="text" class="input-large" name="sitename"><br /><br /><input value="<?php echo $gsiteemail; ?>" style="height: 40px;width: 100%;" type="text" class="input-large" name="siteemail"><br /><br />
+                        <label>Site name</label>
+                    <input value="<?php echo $gsitename; ?>" style="height: 40px;width: 100%;" type="text" class="input-large" name="sitename"><br /><br />
+                        <label>Site email</label>
+                    <input value="<?php echo $gsiteemail; ?>" style="height: 40px;width: 100%;" type="text" class="input-large" name="siteemail"><br /><br />
+                        <label>How many blog posts should show on blog.php</label>
+                    <input value="<?php echo $gbloglimit; ?>" style="height: 40px;width: 100%;" type="text" class="input-large" name="bloglimit"><br /><br />
                     <button type="submit" value="submit" name="submit" class="btn btn-block btn-success">Save settings</button>
                     </form>
                 </div>
@@ -49,8 +55,9 @@ while($row = mysqli_fetch_array($result))
 if(isset($_POST['submit'])){
 $sitename = $_POST['sitename'];
 $siteemail = $_POST['siteemail'];
+$bloglimit = $_POST['bloglimit'];
 
-$conn->query("UPDATE settings SET sitename='".$sitename."', siteemail='".$siteemail."' WHERE id='1'");
+$conn->query("UPDATE settings SET sitename='".$sitename."', siteemail='".$siteemail."', bloglimit='".$bloglimit."' WHERE id='1'");
     
 header("Location: settings.php");
 

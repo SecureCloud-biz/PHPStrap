@@ -1,19 +1,19 @@
 <?php
 
-include 'assets/database.php';
+include '../admin/assets/database.php';
 session_start();
 
 if (isset($_SESSION['logged'])) { 
     if ($_SESSION['logged'] == 1) {
-        header("Location: dashboard.php");
+        header("Location: ../index.php");
     }
 }
 ?>
 <html>
 <head>
     <title>PhpStrap - Login</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
-    <link rel="stylesheet" href="css/extra.css">  
+    <link rel="stylesheet" href="../admin/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="../admin/css/extra.css">  
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -50,11 +50,12 @@ if (isset($_SESSION['logged'])) {
 </head>
 <body>
     <div class="container">
-      <form class="form-signin" action="login.php" method="post">
+      <form class="form-signin" action="ps-login.php" method="post">
           <h4>PhpStrap Login</h4>
         <input type="text" name="username" class="input-block-level" placeholder="Username">
         <input type="password" name="password" class="input-block-level" placeholder="Password">
-        <button class="btn btn-block btn-success" name="submit" value="submit" type="submit">Sign in</button>
+        <button class="btn btn-block btn-success" name="submit" value="submit" type="submit">Sign in</button><br />
+          <div style="text-align: center;"><a href="ps-register.php">or create an account</a></div>
       </form>
         <div style="text-align: center;font-size: small;">Powered by <a href="http://www.getphpstrap.com/" target="_blank">PhpStrap</a></div>
     </div>
@@ -79,7 +80,7 @@ if(isset($_POST['submit'])){
             {
                 $_SESSION['username'] = $input['username'];
                 $_SESSION['logged'] = 1;
-                header("Location: login.php");
+                header("Location: ps-login.php");
             }
         } else {
             echo "<br /><form class=\"form-signin\"><div style=\"text-align: center;\">Error: failed to log you in!</div></form>";

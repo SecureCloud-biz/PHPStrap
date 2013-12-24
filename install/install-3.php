@@ -33,6 +33,7 @@
             (1, 20/11/13, 1, Hello World!, This is your first PhpStrap Post! Log in to the administration panel to edit or delete this post.),");
             $conn->query("INSERT INTO users (user_id, username, email, password, rank_id) VALUES
             (1, ".$username.", ".$email.", ".$password.", 7)");
+            
             echo '
             <div class="well"><strong>PhpStrap has successfully been installed.</strong> Please delete the install folder to be able to run the script.</div>';
             

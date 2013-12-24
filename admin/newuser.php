@@ -46,7 +46,7 @@ if ($rank_id == 7) {
 </html>
 <?php
 } else { header("Location: ../"); }
-//Inserting Post to Database
+//Inserting user to Database
 if(isset($_POST['submit'])){
 $username = $_POST['username'];
 $email = $_POST['email'];

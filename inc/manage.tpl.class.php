@@ -27,5 +27,23 @@ while ($db_field = $blog_sql->fetch_array()) {
     $test[] = $db_field;
 }
 $tpl->assign( "getblog", $test );
+//Managing logged in users
+if (isset($_SESSION['logged'])) { 
+    if ($_SESSION['logged'] == 1) {
+        $c_username = $_SESSION['username'];
+        $result = $conn->query("SELECT * FROM users where username = '".$c_username."'");
+        while($row = $result->fetch_assoc()) {
+            $user_id = $row['user_id'];
+            $rank_id = $row['rank_id'];
+            $username = $row['username'];
+        }
+        $tpl->assign( "user_id", $user_id );
+        $tpl->assign( "rank_id", $rank_id );
+        $tpl->assign( "username", $username );
+    }
+}
+//Check logged
+
+
 $conn->close();
 ?>

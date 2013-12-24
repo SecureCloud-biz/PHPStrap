@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset=utf-8 />
-<title>Blog | {$sitename}</title>
+<title>Welcome | {$sitename}</title>
 <link href="style/style.css" type="text/css" rel="stylesheet" >
 </head>
 <body>			
@@ -18,8 +19,8 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.php">Home</a></li>
-            <li class="active"><a href="blog.php">Blog</a></li>
-            <li><a href="user-only.php">Users only!</a></li>
+            <li><a href="blog.php">Blog</a></li>
+            <li class="active"><a href="user-only.php">Users only!</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="admin/">Log in to Administration</a></li>
@@ -27,15 +28,14 @@
         </div><!-- /.nav-collapse -->
       </div>
     <div class="container">
-        <h3>{$sitename}: Blog</h3>
+        <h3>{$sitename}: Welcome {$username}</h3>
         <div class="row">
             <div class="col-md-9">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    {loop="getblog"} 
-                    <h3 style="margin: 0">{$value.post_title} <small>{$value.dateposted}</small></h3>
-                    {$value.post_content}<hr>
-                    {/loop}
+                    This is an example page that only logged in users can see, very good for private information. See the following file to see how this is done:<br /><br />
+                    <div class="well" style="text-align: center;">user-only.php</div>
+                      Variables such as {noparse}{$username}, {$user_id} and {$rank_id}{/noparse} can also be used to determine who can access a certain page.
                   </div>
                 </div>
             </div>

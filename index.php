@@ -1,7 +1,4 @@
 <?php
-    if (file_exists('install')) { //Checks to see if install file exists
-        header("Location: /install"); //If it does, it redirects to the install file
-    } else {
 
 	//include the RainTPL class
 	include "inc/rain.tpl.class.php";
@@ -12,7 +9,5 @@
     $template = $tpl->draw( 'index', $return_string = true );
     // and then draw the output
     echo $template;
-    
-    }
         
 ?>

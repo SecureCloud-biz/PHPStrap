@@ -39,8 +39,7 @@
               `email` varchar(30) NOT NULL,
               `password` varchar(30) NOT NULL,
               `rank_id` text,
-              PRIMARY KEY (`user_id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;");
+              PRIMARY KEY (`user_id`))");
                
             echo '
             <div class="well">Database has been written to successfully. Please continue below.</div><a class="btn btn-block btn-primary" href="install-3.php">Continue with installation</a>';
