@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8 />
+<title>Blog | {$sitename}</title>
+<link href="style/style.css" type="text/css" rel="stylesheet" >
+</head>
+<body>			
+	<div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">{$sitename}</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.php">Home</a></li>
+            <li class="active"><a href="blog.php">Blog</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="admin/">Log in to Administration</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div>
+    <div class="container">
+        <h3>{$sitename}: Blog</h3>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    {loop="getblog"} 
+                    <h3 style="margin: 0">{$value.post_title} <small>{$value.dateposted}</small></h3>
+                    {$value.post_content}<hr>
+                    {/loop}
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Side Panel</div>
+                  <div class="panel-body">
+                    <a href="admin/">PhpStrap Administration</a>
+                    <a href="http://www.getphpstrap.com/forum.php" target="_blank">PhpStrap Forums</a>
+                    <a href="http://www.getphpstrap.com/documentation.php" target="_blank">PhpStrap Documentation</a>
+                      <br /><br />
+                    <a href="http://www.getphpstrap.com/donate.php" target="_blank">Donate to the project</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center;font-size: small;">{$copyright}</div>
+</body>
+</html>
