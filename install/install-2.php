@@ -21,30 +21,35 @@
                 </form>
             </div>
             <?php
-            //Getinfo
+            //Get info
             if(isset($_POST['submit'])){
-            //establish connection and insert
-            $conn->query("CREATE TABLE IF NOT EXISTS `posts` (
-              `post_id` int(11) NOT NULL AUTO_INCREMENT,
-              `dateposted` varchar(25) NOT NULL,
-              `author_id` int(11) NOT NULL,
-              `post_title` text NOT NULL,
-              `post_content` text NOT NULL,
-              PRIMARY KEY (`post_id`)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;");
-                
-            $conn->query("CREATE TABLE IF NOT EXISTS `users` (
-              `user_id` int(11) NOT NULL AUTO_INCREMENT,
-              `username` varchar(30) NOT NULL,
-              `email` varchar(30) NOT NULL,
-              `password` varchar(30) NOT NULL,
-              `rank_id` text,
-              PRIMARY KEY (`user_id`))");
-               
-            echo '
-            <div class="well">Database has been written to successfully. Please continue below.</div><a class="btn btn-block btn-primary" href="install-3.php">Continue with installation</a>';
-            
-                
+                // Establish connection and insert
+                $createColumn = $conn->query("CREATE TABLE IF NOT EXISTS `posts` (
+                  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `dateposted` varchar(25) NOT NULL,
+                  `author_id` int(11) NOT NULL,
+                  `post_title` text NOT NULL,
+                  `post_content` text NOT NULL,
+                  PRIMARY KEY (`post_id`)
+                ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;");
+                    
+                $createColumn2 = $conn->query("CREATE TABLE IF NOT EXISTS `users` (
+                  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `username` varchar(30) NOT NULL,
+                  `email` varchar(30) NOT NULL,
+                  `password` varchar(30) NOT NULL,
+                  `rank_id` text,
+                  PRIMARY KEY (`user_id`))");
+                   
+                if($createColumn) {
+                    if($createColumn2) {
+                        echo '<div class="well">Database has been written to successfully. Please continue below.</div><a class="btn btn-block btn-primary" href="install-3.php">Continue with installation</a>';
+                    } else {
+                        echo '<div class="well">Could not create table users:' . printf($conn->error()) . '</div>';
+                    }
+                } else {
+                    echo '<div class="well">Could not crate table posts:' . printf($conn->error()) .'</div>';
+                }
             }
             ?>
         </div>
