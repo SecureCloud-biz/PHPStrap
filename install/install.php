@@ -14,7 +14,7 @@
         <div class="span6">
             <div class="well">
                 <strong>Thank you for downloading PhpStrap Beta.</strong><br />
-                <p>We hope that PhpStrap will come in very handy for your development if you plan on developing on top of it. This installer will install PhpStrap on to your server. <strong>Please note</strong> that this is an early beta of PhpStrap and we plan on releasing more stable versions of this script in the near future.</p>
+                <p>We hope that PhpStrap will come in very handy for your development if you plan on developing on top of it. This installer will install PhpStrap on to your server. <strong>Please note</strong> that this is an early beta of PhpStrap and we plan on releasing more stable versions of this script in the near future. <br /><b>Warning: Please check if your browser allows cookies, otherwise the installation my not work.</b></p>
                 <div style="text-align: center;">
                 <a href="http://www.getphpstrap.com/" target="_blank">Official Website</a> -
                 <a href="http://www.getphpstrap.com/documentation.html" target="_blank">Documentation</a> -
