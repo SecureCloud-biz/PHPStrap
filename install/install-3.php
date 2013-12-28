@@ -23,21 +23,23 @@
                 </form>
             </div>
             <?php
-            //Getinfo
-            if(isset($_POST['submit'])){
-            $username = $_POST['username'];
-            $email = $_POST['email'];
-            $password = md5($_POST['password']);
-            //establish connection and insert
-                $conn->query("INSERT INTO posts (post_id, dateposted, author_id, post_title, post_content`) VALUES
-            (1, 20/11/13, 1, Hello World!, This is your first PhpStrap Post! Log in to the administration panel to edit or delete this post.),");
-            $conn->query("INSERT INTO users (user_id, username, email, password, rank_id) VALUES
-            (1, ".$username.", ".$email.", ".$password.", 7)");
-            
-            echo '
-            <div class="well"><strong>PhpStrap has successfully been installed.</strong> Please delete the install folder to be able to run the script.</div>';
-            
+            // Get info
+            if(isset($_POST['submit'])) {
+                $username = $conn->real_escape_string($_POST['username']);
+                $email = $conn->real_escape_string($_POST['email']);
+                $password = $conn->real_escape_string(md5($_POST['password']));
                 
+                // Establish connection and insert data
+                $insertinfo = $conn->query("INSERT INTO posts (post_id, dateposted, author_id, post_title, post_content) VALUES
+                ('1', '20/11/13', '1', 'Hello World!', 'This is your first PhpStrap Post! Log in to the administration panel to edit or delete this post.')");
+                $insertinfo2 = $conn->query("INSERT INTO users (user_id, username, email, password, rank_id) VALUES
+                (1, '".$username."', '".$email."', '".$password."', 7)");
+            
+    			if($insertinfo) {
+    				if($insertinfo2) {
+    					echo '<div class="well"><strong>PhpStrap has successfully been installed.</strong> Please delete the install folder to be able to run the script.</div>';
+    				}
+    			}
             }
             ?>
         </div>
