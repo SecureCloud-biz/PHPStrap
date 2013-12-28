@@ -18,7 +18,8 @@
     //START - CLOSE THE BRACKETS
         }
     } else {
-            echo "This page seems to be using the 'users-only' PHP template in the root of your install. To log in click <a href='user/ps-login.php'>here</a>."; //NON-USERS SEE THIS
+			header("location: /");
+			//NON-USERS SEE THIS
     }
     //END
 ?>
