@@ -1,4 +1,5 @@
 <?php include '../admin/assets/database.php'; ?>
+<?php if(isset($_COOKIE['installCookie2'])) { ?>
 <html>
 <head>
     <title>PhpStrap | Installer</title>
@@ -37,7 +38,13 @@
             
     			if($insertinfo) {
     				if($insertinfo2) {
-    					echo '<div class="well"><strong>PhpStrap has successfully been installed.</strong> Please delete the install folder to be able to run the script.</div>';
+						setCookie('installCookie2', $installCookie2, time() -3600);
+						unset($_COOKIE['installCookie2']);
+						$installCookie = 0;
+						
+						if(!isset($_COOKIE['installCookie2'])) {
+							echo '<div class="well"><strong>PhpStrap has successfully been installed.</strong> Please delete the install folder to be able to run the script.</div>';
+						}
     				}
     			}
             }
@@ -47,3 +54,4 @@
     </div>
 </body>
 </html>
+<?php } else { header("location: install.php"); } ?>
