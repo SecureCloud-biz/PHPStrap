@@ -14,8 +14,8 @@ $tpl = new RainTPL;
 $copyright = '&copy; <a href="http://www.getphpstrap.com" target="_blank">PhpStrap</a> 2014';
 $tpl->assign( "copyright", $copyright );
 //..Sitename
-$result = mysqli_query($conn,"SELECT * FROM settings");
-while($row = mysqli_fetch_array($result))
+$result = $conn->query("SELECT * FROM settings");
+while($row = $result->fetch_array())
 {
     $gsitename = $row['sitename'];
     $gbloglimit = $row['bloglimit'];
@@ -27,6 +27,22 @@ while ($db_field = $blog_sql->fetch_array()) {
     $test[] = $db_field;
 }
 $tpl->assign( "getblog", $test );
+// Get blog page
+$blog_page = $conn->query("SELECT * FROM posts ORDER BY post_id DESC LIMIT 10");
+$result = $blog_page->fetch_array();
+
+$last = $conn->real_escape_string($result['post_id']);
+
+if(isset($_GET['id'])) {
+	$blog_viewid = $conn->real_escape_string($_GET['id']);
+} else {
+	$blog_viewid = $last;
+}
+
+$getBlogInfo = $conn->query("SELECT * FROM posts WHERE post_id = '".$blog_viewid."'");
+$blogsview = $getBlogInfo->fetch_array();
+
+$tpl->assign("blogsview", $blogsview);
 //Managing logged in users
 if (isset($_SESSION['logged'])) { 
     if ($_SESSION['logged'] == 1) {
