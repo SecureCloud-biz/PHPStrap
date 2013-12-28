@@ -32,10 +32,17 @@
             <div class="col-md-9">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    {loop="getblog"} 
-                    <h3 style="margin: 0">{$value.post_title} <small>{$value.dateposted}</small></h3>
-                    {$value.post_content}<hr>
-                    {/loop}
+                    {if condition="isset($_GET['id'])"}
+						<h3 style="margin: 0; font-weight:bold;">{$blogsview.post_title} <small>{$blogsview.dateposted}</small></h3>
+						{$blogsview.post_content}<hr>
+					{/if}
+					
+					{if condition="!isset($_GET['id'])"}
+						{loop="getblog"} 
+						<a href="blog.php?id={$value.post_id}"><h3 style="margin: 0">{$value.post_title}</h3></a><small><i>{$value.dateposted}</i> - </small>
+						{$value.post_content}<hr>
+						{/loop}
+					{/if}
                   </div>
                 </div>
             </div>
