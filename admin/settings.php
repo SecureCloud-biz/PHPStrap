@@ -53,9 +53,9 @@ while($row = mysqli_fetch_array($result))
 <?php
 } else { header("Location: ../"); }
 if(isset($_POST['submit'])){
-$sitename = $_POST['sitename'];
-$siteemail = $_POST['siteemail'];
-$bloglimit = $_POST['bloglimit'];
+$sitename = $conn->real_escape_string($_POST['sitename']);
+$siteemail = $conn->real_escape_string($_POST['siteemail']);
+$bloglimit = $conn->real_escape_string($_POST['bloglimit']);
 
 $conn->query("UPDATE settings SET sitename='".$sitename."', siteemail='".$siteemail."', bloglimit='".$bloglimit."' WHERE id='1'");
     
