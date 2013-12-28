@@ -22,7 +22,18 @@
                 <a href="http://www.getphpstrap.com/node.php/v/announcements.2" target="_blank">Check for Updates</a>
                 </div>
             </div>
-            <a class="btn btn-block btn-primary" href="install-2.php">Continue with installation</a>
+			<?php
+				if(isset($_POST['conInstall'])) {
+					$installCookie = 1;
+					setCookie('installCookie', $installCookie, time() + 60*60*1);
+					if(isset($_COOKIE['installCookie'])) {
+						header("location: install-2.php");
+					}
+				}
+			?>
+            <form method="post" action="">
+                <input type="submit" name="conInstall" value="Continue with installtion" class="btn btn-block btn-primary">
+            </form>
         </div>
         <div class="span3"></div>
     </div>
