@@ -29,6 +29,28 @@ if ($rank_id == 7) {
                 </div>
             </div>
             <div class="span8">
+				<?php
+					//Inserting user to Database
+					if(isset($_POST['submit'])){
+					$username = $conn->real_escape_string($_POST['username']);
+					$email = $conn->real_escape_string($_POST['email']);
+					$rank_id = '1';
+					$password = $conn->real_escape_string(md5($_POST['password']));
+
+					$addUser = $conn->query("INSERT INTO users (username, email, rank_id, password) VALUES (
+					'" . $username . "',
+					'" . $email . "',
+					'" . $rank_id . "',
+					'" . $password . "')");
+
+					if($addUser) {
+						echo "<div style='background: green; color:#FFF; border-radius:4px; margin-bottom: 15px; padding: 15px;'>The user was successfully added.</div>";
+					} else {
+						echo "<div style='background: red; color:#FFF; border-radius:4px; margin-bottom: 15px; padding: 15px;'>". printf($conn->error()) . "</div>";
+					}
+
+					}
+				?>
                 <div class="well well-small">
                     <strong>Add New User.</strong><br /><br />
                     <form class="form-horizontal" action="newuser.php" method="POST">
@@ -46,23 +68,6 @@ if ($rank_id == 7) {
 </html>
 <?php
 } else { header("Location: ../"); }
-//Inserting user to Database
-if(isset($_POST['submit'])){
-$username = $_POST['username'];
-$email = $_POST['email'];
-$rank_id = '1';
-$password = md5($_POST['password']);
-
-$conn->query("INSERT INTO users (username, email, rank_id, password) VALUES (
-'" . mysql_real_escape_string($username) . "',
-'" . mysql_real_escape_string($email) . "',
-'" . mysql_real_escape_string($rank_id) . "',
-'" . mysql_real_escape_string($password) . "')");
-    
-header("Location: newuser.php");
-
-    
-}
 
 $conn->close();
 ?>
