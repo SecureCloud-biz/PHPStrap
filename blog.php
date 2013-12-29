@@ -1,5 +1,7 @@
 <?php
-
+	session_start();
+	ini_set('display_errors', 1);
+	
 	//include the RainTPL class
 	include "inc/rain.tpl.class.php";
     include "themes/theme-settings.php";
