@@ -71,7 +71,7 @@ class RainTPL{
 		 *
 		 * @var unknown_type
 		 */
-		static $black_list = array( '\$this', 'raintpl::', 'self::', '_SESSION', '_SERVER', '_ENV',  'eval', 'exec', 'unlink', 'rmdir' );
+		static $black_list = array( '\$this', 'raintpl::', 'self::', '_SERVER', '_ENV',  'eval', 'exec', 'unlink', 'rmdir' );
 
 
 		/**
