@@ -4,6 +4,41 @@
 <meta charset=utf-8 />
 <title>Blog | {$sitename}</title>
 <link href="style/style.css" type="text/css" rel="stylesheet" >
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+<style type="text/css">
+
+      textarea {
+        width: 100%;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      textarea{
+        margin-bottom: 10px;
+      }
+      textarea {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+	  
+	  .comment {
+		background-color: #EEE;
+		padding: 10px;
+		border-radius: 5px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	  }
+
+    </style>
 </head>
 <body>			
 	<div class="navbar navbar-default">
@@ -34,13 +69,58 @@
                   <div class="panel-body">
                     {if condition="isset($_GET['id'])"}
 						<h3 style="margin: 0; font-weight:bold;">{$blogsview.post_title} <small>{$blogsview.dateposted}</small></h3>
-						{$blogsview.post_content}<hr>
+						{$blogsview.post_content}<br />
+						
+						{if condition="isset($_SESSION['logged'])"}
+							{if condition="$controlLock <= 0"}
+								<form method="post" action="">
+									<input type="submit" name="like" class="btn-success" value="Like" style="float: right;">
+								</form>
+							{/if}
+							
+							{if condition="$controlLock >= 1"}
+								<form method="post" action="">
+									<input type="submit" name="unlike" class="btn-danger" value="Unlike" style="float: right;">
+								</form>
+							{/if}
+						{/if}
+						<span style="float: right; font-size: 13px; font-weight: bold; margin-top: 7.5px; margin-right: 10px;">
+						{$getLikes} Like(s)
+						</span><br style="clear: both;">
+						<hr>
+						
+						{if condition="isset($_SESSION['logged'])"}
+							{if condition="!isset($_GET['reply'])"}
+							{if condition="isset($_POST['submitComment'])"}{$commentSign}{/if}
+							<form method="post" action="">
+								<textarea name="blogComment" placeholder="Comment something here..." class="rpl"></textarea><br />
+								<input type="submit" name="submitComment" value="Post comment" class="btn btn-block btn-success">
+							</form><hr>
+							{/if}
+							
+							{if condition="isset($_GET['reply'])"}
+								<form method="post" action="">
+									<textarea name="blogComment" placeholder="Comment something here..." class="rpl"><blockquote>{$fetchTryRpl.comment}</blockquote></textarea><br />
+									<input type="submit" name="submitComment" value="Post comment" class="btn btn-block btn-success">
+								</form><hr>
+							{/if}
+						{/if}{if condition="!isset($_SESSION['logged'])"}You need to login to comment.{/if}
+						
+						{loop="getComments"}
+							<div class="comment">
+								<span style="font-size: 10px;"><b>Written by: </b>{$value.user_name} <span style="float: right;"><b>Date: </b>{$value.date}</span></span><br />
+								{$value.comment}
+								
+								<span style="font-size: 10px; float: right;" class="rplClick"><a href="blog.php?id={$blogsview.post_id}&reply={$value.id}" class="rplClick">Reply</a></span>
+							</div>
+						{/loop}
+
 					{/if}
 					
 					{if condition="!isset($_GET['id'])"}
 						{loop="getblog"} 
 						<a href="blog.php?id={$value.post_id}"><h3 style="margin: 0">{$value.post_title}</h3></a><small><i>{$value.dateposted}</i> - </small>
-						{$value.post_content}<hr>
+						{$value.post_content|substr:0,250}... <a href="blog.php?id={$value.post_id}">Read More &raquo;</a><hr>
 						{/loop}
 					{/if}
                   </div>
