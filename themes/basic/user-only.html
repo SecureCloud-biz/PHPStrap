@@ -23,7 +23,8 @@
             <li class="active"><a href="user-only.php">Users only!</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="admin/">Log in to Administration</a></li>
+            {if condition="!isset($_SESSION['logged'])"}<li><a href="user/ps-login.php">Log in</a></li>{/if}
+			{if condition="isset($_SESSION['logged'])"}<li><a href="#">{$username}</a></li>{/if}
           </ul>
         </div><!-- /.nav-collapse -->
       </div>
