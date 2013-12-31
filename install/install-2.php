@@ -42,23 +42,61 @@
                   `password` varchar(255) NOT NULL,
                   `rank_id` text,
                   PRIMARY KEY (`user_id`))");
-                   
+				
+				$createColumn3 = $conn->query("CREATE TABLE IF NOT EXISTS `settings` (
+				  `id` int(11) NOT NULL AUTO_INCREMENT,
+				  `sitename` varchar(255) NOT NULL,
+				  `siteemail` varchar(255) NOT NULL,
+				  `bloglimit` varchar(255) NOT NULL,
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;");
+				
+				$createData3 = $conn->query("INSERT INTO `settings` VALUES ('1', 'PHPStrap', 'admin@admin.com', '5')");
+				
+				$createColumn4 = $conn->query("CREATE TABLE IF NOT EXISTS `post_likes` (
+				  `id` int(11) NOT NULL AUTO_INCREMENT,
+				  `user_id` int(11) NOT NULL,
+				  `post_id` int(11) NOT NULL,
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+				
+				$createColumn5 = $conn->query("CREATE TABLE IF NOT EXISTS `post_comments` (
+					  `id` int(11) NOT NULL AUTO_INCREMENT,
+					  `post_id` int(11) NOT NULL,
+					  `user_name` varchar(255) NOT NULL,
+					  `comment` text NOT NULL,
+					  `date` varchar(255) NOT NULL,
+					  PRIMARY KEY (`id`)
+					) ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+								   
                 if($createColumn) {
                     if($createColumn2) {
-						setCookie('installCookie', $installCookie, time() -3600);
-						unset($_COOKIE['installCookie']);
-						
-						$installCookie2 = 1;
-						setCookie('installCookie2', $installCookie2, time() + 60*60*1);
-						
-						if(isset($_COOKIE['installCookie2'])) {
-							header("location: install-3.php");
+						if($createColumn3) {
+							if($createColumn4) {
+								if($createColumn5) { 
+									setCookie('installCookie', $installCookie, time() -3600);
+									unset($_COOKIE['installCookie']);
+									
+									$installCookie2 = 1;
+									setCookie('installCookie2', $installCookie2, time() + 60*60*1);
+									
+									if(isset($_COOKIE['installCookie2'])) {
+										header("location: install-3.php");
+									} 
+								} else {
+									echo '<div class="well">Could not create table post_comments:' . $conn->error . '</div>';
+								}
+							} else {
+								echo '<div class="well">Could not create table post_likes:' . $conn->error . '</div>';
+							}
+						} else {
+							echo '<div class="well">Could not create table settings:' . $conn->error . '</div>';
 						}
                     } else {
-                        echo '<div class="well">Could not create table users:' . printf($conn->error()) . '</div>';
+                        echo '<div class="well">Could not create table users:' . $conn->error . '</div>';
                     }
                 } else {
-                    echo '<div class="well">Could not crate table posts:' . printf($conn->error()) .'</div>';
+                    echo '<div class="well">Could not create table posts:' . $conn->error .'</div>';
                 }
             }
             ?>
