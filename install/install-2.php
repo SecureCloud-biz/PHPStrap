@@ -32,6 +32,7 @@
                   `author_id` int(11) NOT NULL,
                   `post_title` text NOT NULL,
                   `post_content` text NOT NULL,
+				  `likes` int(11) NOT NULL,
                   PRIMARY KEY (`post_id`)
                 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;");
                     
