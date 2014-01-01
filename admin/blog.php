@@ -12,8 +12,12 @@ if ($rank_id == 7) {
     <title>PhpStrap - Manage Blog Posts</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">    
     <link rel="stylesheet" href="css/extra.css">    
-	<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-    <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+	<script type="text/javascript" src="../tinymce/js/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript">
+	tinymce.init({
+		selector: "textarea"
+	 });
+	</script>
 </head>
 <body>
     <?php include 'inc/navigation.php'; ?>
@@ -76,7 +80,7 @@ if ($rank_id == 7) {
 						<input type="text" name="editTitle" value="<?php echo $fetchtblUsers['post_title']; ?>" style="padding: 15px; width: 100%;">
 
 						<label for="editMail">Post Content</label>
-						<textarea name="editContent" style="padding: 15px; width: 100%; height: 150px;"><?php echo $fetchtblUsers['post_content']; ?></textarea>
+						<textarea name="editContent" style="padding: 15px; width: 100%; height: 150px;"><?php echo $fetchtblUsers['post_content']; ?></textarea><br />
 
 						<input type="submit" name="submitPstEdit" value="Save" class="btn btn-success">
 					</form>
@@ -88,7 +92,9 @@ if ($rank_id == 7) {
 							$newTitle = $conn->real_escape_string($_POST['editTitle']);
 							$newContent = $conn->real_escape_string($_POST['editContent']);
 							
-							$updatePost = $conn->query("UPDATE posts SET post_title = '".$newTitle."', post_content = '".$newContent."'");
+							$getid = $conn->real_escape_string($_GET['edit']);
+							
+							$updatePost = $conn->query("UPDATE posts SET post_title = '".$newTitle."', post_content = '".$newContent."' WHERE post_id = '".$getid."'");
 							if($updatePost) {
 								header("location: blog.php");
 							}
