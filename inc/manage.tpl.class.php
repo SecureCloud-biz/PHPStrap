@@ -26,9 +26,8 @@ $tpl->assign( "sitename", $gsitename );
 $blog_sql = $conn->query("SELECT DISTINCT * FROM posts ORDER BY post_id DESC LIMIT ".$gbloglimit."") or die(mysql_error()); 
 while($db_field = $blog_sql->fetch_array()) {
 	$test[] = $db_field;
+	$tpl->assign( "getblog", $test );
 }
-
-$tpl->assign( "getblog", $test );
 
 // Get blog page
 $blog_page = $conn->query("SELECT * FROM posts ORDER BY post_id DESC LIMIT 10");
@@ -47,8 +46,10 @@ $blogsview = $getBlogInfo->fetch_array();
 
 $tpl->assign("blogsview", $blogsview);
 
-if($getBlogInfo->num_rows <= 0) {
-	header("location: blog.php");
+if(isset($_GET['id'])) {
+	if($getBlogInfo->num_rows <= 0) {
+		header("location: blog.php");
+	}
 }
 
 //Managing logged in users
@@ -74,7 +75,7 @@ if(isset($_POST['submitComment'])) {
 	if(!empty($blogComment)) {
 		$blogId = $conn->real_escape_string($_GET['id']);
 		$BlogUid = $conn->real_escape_string($username);
-		$blogDate = date("d/m/Y");
+		$blogDate = date("d/m/Y H:i");
 		
 		$insertComment = $conn->query("INSERT INTO post_comments (post_id, user_name, comment, date) VALUES('".$blogId."', '".$BlogUid."', '".$blogComment."', '".$blogDate."')");
 		if($insertComment) {
@@ -128,6 +129,20 @@ if(isset($_GET['id'])) {
 	$countLikes = $conn->query("SELECT * FROM post_likes WHERE post_id = '".$cId."'");
 	$getLikes = $countLikes->num_rows;
 	$tpl->assign("getLikes", $getLikes);
+}
+// Delete blog comments
+if(isset($_GET['id'])) {
+	if(isset($_GET['delComment'])) {
+		if($rank_id == 7) {
+			$delId = $conn->real_escape_string($_GET['delComment']);
+			$delCommentQuery = $conn->query("DELETE FROM post_comments WHERE id = '".$delId."'");
+			if($delCommentQuery) {
+				header("location: blog.php?id=" . $conn->real_escape_string($_GET['id']) . "");
+			}
+		} else {
+			header("location: blog.php");
+		}
+	}
 }
 //Check logged
 
