@@ -16,8 +16,12 @@ if ($rank_id == 7) {
     <style type="text/css">
         .input-large {width: 100%;}
     </style>
-    <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-    <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+    <script type="text/javascript" src="../tinymce/js/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript">
+	tinymce.init({
+		selector: "textarea"
+	 });
+	</script>
 </head>
 <body>
     <?php include 'inc/navigation.php'; ?>
@@ -32,11 +36,12 @@ if ($rank_id == 7) {
 					$post_title = $conn->real_escape_string($_POST['post_title']);
 					$post_content = $conn->real_escape_string($_POST['post_content']);
 
-					$addPost = $conn->query("INSERT INTO posts (dateposted, author_id, post_title, post_content) VALUES (
+					$addPost = $conn->query("INSERT INTO posts (dateposted, author_id, post_title, post_content, likes) VALUES (
 					'" . $dateposted . "',
 					'" . $author_id . "',
 					'" . $post_title . "',
-					'" . $post_content . "')
+					'" . $post_content . "',
+					'0')
 					");
 
 					if($addPost) {
