@@ -5,6 +5,12 @@
 <title>Blog | {$sitename}</title>
 <link href="style/style.css" type="text/css" rel="stylesheet" >
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../tinymce/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+	tinymce.init({
+		selector: "textarea"
+	 });
+</script>
 <style type="text/css">
 
       textarea {
@@ -112,7 +118,7 @@
 								<span style="font-size: 10px;"><b>Written by: </b>{$value.user_name} <span style="float: right;"><b>Date: </b>{$value.date}</span></span><br />
 								{$value.comment}
 								
-								<span style="font-size: 10px; float: right;" class="rplClick"><a href="blog.php?id={$blogsview.post_id}&reply={$value.id}" class="rplClick">Reply</a></span>
+								<span style="font-size: 10px; float: right;" class="rplClick"><a href="blog.php?id={$blogsview.post_id}&reply={$value.id}" class="rplClick">Reply</a> {if condition="$rank_id == 7"}- <a href="blog.php?id={$blogsview.post_id}&delComment={$value.id}" class="rplClick">Delete</a>{/if}</span>
 							</div>
 						{/loop}
 
