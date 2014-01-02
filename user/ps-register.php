@@ -83,15 +83,15 @@ if(isset($_POST['submit'])){
             }
         } else {
             //Inserting Post to Database
-            $username = $_POST['username'];
-            $email = $_POST['email'];
+            $username = $conn->real_escape_string($_POST['username']);
+            $email = $conn->real_escape_string($_POST['email']);
             $rank_id = '1';
-            $password = md5($_POST['password']);
+            $password = $conn->real_escape_string(md5($_POST['password']));
             $conn->query("INSERT INTO users (username, email, rank_id, password) VALUES (
-            '" . mysql_real_escape_string($username) . "',
-            '" . mysql_real_escape_string($email) . "',
-            '" . mysql_real_escape_string($rank_id) . "',
-            '" . mysql_real_escape_string($password) . "')");
+            '" . $username . "',
+            '" . $email . "',
+            '" . $rank_id . "',
+            '" . $password . "')");
                 
             header("Location: ps-login.php");
         }
