@@ -118,7 +118,10 @@
 								<span style="font-size: 10px;"><b>Written by: </b>{$value.user_name} <span style="float: right;"><b>Date: </b>{$value.date}</span></span><br />
 								{$value.comment}
 								
-								<span style="font-size: 10px; float: right;" class="rplClick"><a href="blog.php?id={$blogsview.post_id}&reply={$value.id}" class="rplClick">Reply</a> {if condition="$rank_id == 7"}- <a href="blog.php?id={$blogsview.post_id}&delComment={$value.id}" class="rplClick">Delete</a>{/if}</span>
+								<span style="font-size: 10px; float: right;" class="rplClick"><a href="blog.php?id={$blogsview.post_id}&reply={$value.id}" class="rplClick">Reply</a>
+								if condition="isset($_SESSION['logged'])"}
+								{if condition="$rank_id == 7"}- <a href="blog.php?id={$blogsview.post_id}&delComment={$value.id}" class="rplClick">Delete</a>{/if}</span>
+								{/if}
 							</div>
 						{/loop}
 
