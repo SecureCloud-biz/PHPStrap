@@ -79,7 +79,7 @@ if(isset($_POST['submitComment'])) {
                 
                 $insertComment = $conn->query("INSERT INTO post_comments (post_id, user_name, comment, date) VALUES('".$blogId."', '".$BlogUid."', '".$blogComment."', '".$blogDate."')");
                 if($insertComment) {
-                        header("location: blog.php?id=$blogId");
+                        header("location: ?id=$blogId");
                 } else {
                         printf($conn->error());
                 }
@@ -137,10 +137,10 @@ if(isset($_GET['id'])) {
                         $delId = $conn->real_escape_string($_GET['delComment']);
                         $delCommentQuery = $conn->query("DELETE FROM post_comments WHERE id = '".$delId."'");
                         if($delCommentQuery) {
-                                header("location: blog.php?id=" . $conn->real_escape_string($_GET['id']) . "");
+                                header("location: ?id=" . $conn->real_escape_string($_GET['id']) . "");
                         }
                 } else {
-                        header("location: blog.php");
+                        header("location: index.php");
                 }
         }
 }
